@@ -4,6 +4,7 @@ import { HttpRequest, HttpErrorResponse } from '@angular/common/http'
 import { Observable, throwError } from 'rxjs'
 import { HttpHandler } from '@angular/common/http'
 import { HttpEvent } from '@angular/common/http'
+import { environment } from './environment'
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { HttpEvent } from '@angular/common/http'
 
 export class AppInterceptor implements HttpInterceptor {
 
-  baseURL = 'http://localhost:5122/api'
+  baseURL = environment.apiUrl;
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request.clone({
