@@ -2,17 +2,15 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { UserIndex } from './components/user/Index.component'
 import { UserCreate } from './components/user/Create.component'
-import { UserDetail } from './components/user/Detail.component'
 import { UserEdit } from './components/user/Edit.component'
 import { UserDelete } from './components/user/Delete.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: 'user', pathMatch: 'full' },
   { path: 'user', component: UserIndex },
   { path: 'user/create', component: UserCreate },
-  { path: 'user/:id', component: UserDetail },
   { path: 'user/edit/:id', component: UserEdit },
-  { path: 'user/delete/:id', component: UserDelete }
+  { path: 'user/delete/:id', component: UserDelete },
+  { path: '**', redirectTo: 'user', pathMatch: 'full' }
 ]
 
 @NgModule({

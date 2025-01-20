@@ -60,11 +60,15 @@ export class UserDelete {
   }
 
   get() {
-    return this.UserService.delete(this.user.id).subscribe(data => {
-      this.user = data
-    }, e => {
-      alert(e.error)
-    })
+    const userId = this.route.snapshot.params['id'] || this.user.id;  // Valor por defecto si 'id' es undefined
+    this.UserService.get(userId).subscribe(
+      data => {
+        this.user = data;
+      },
+      e => {
+        alert(e.error);
+      }
+    );
   }
 
   delete() {

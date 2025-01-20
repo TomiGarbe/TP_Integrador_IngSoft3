@@ -29,7 +29,6 @@ import { UserService } from './User.service'
                 <td>{{user.email}}</td>
                 <td>{{user.phone}}</td>
                 <td class="text-center">
-                  <a class="btn btn-secondary" routerLink="/user/{{user.id}}" title="View"><i class="fa fa-eye"></i></a>
                   <a class="btn btn-primary" routerLink="/user/edit/{{user.id}}" title="Edit"><i class="fa fa-pencil"></i></a>
                   <a class="btn btn-danger" routerLink="/user/delete/{{user.id}}" title="Delete"><i class="fa fa-times"></i></a>
                 </td>

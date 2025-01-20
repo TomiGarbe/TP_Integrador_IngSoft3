@@ -10,7 +10,6 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { UserIndex } from './components/user/Index.component'
 import { UserCreate } from './components/user/Create.component'
-import { UserDetail } from './components/user/Detail.component'
 import { UserEdit } from './components/user/Edit.component'
 import { UserDelete } from './components/user/Delete.component'
 
@@ -19,7 +18,6 @@ import { UserDelete } from './components/user/Delete.component'
     AppComponent,
     UserIndex,
     UserCreate,
-    UserDetail,
     UserEdit,
     UserDelete,
   ],

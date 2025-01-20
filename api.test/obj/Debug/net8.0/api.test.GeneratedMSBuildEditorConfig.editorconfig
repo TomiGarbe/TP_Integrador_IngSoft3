@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = api.test
-build_property.ProjectDir = C:\Users\tomas\Desktop\Visual_Studio_Code\4-Cuarto_Año\Ingenieria_de_Software_III\Example-CRUD-Angular-18-dotnet-8\api.test\
+build_property.ProjectDir = C:\Users\tomas\Desktop\Visual_Studio_Code\4-Cuarto_Año\Ingenieria_de_Software_III\TP_Integrador_IngSoft3\api.test\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

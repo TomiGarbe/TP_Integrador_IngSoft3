@@ -75,7 +75,7 @@ export class UserCreate {
   private async userDniPhoneExists(num: number): Promise<boolean> {
     const users = await firstValueFrom(this.UserService.get());
     for (const user of users) {
-      if (user.dni === num || user.phone === num) {
+      if (user.dni == num || user.phone == num) {
         return true;
       }
     }

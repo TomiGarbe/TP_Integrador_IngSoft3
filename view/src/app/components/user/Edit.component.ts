@@ -85,7 +85,7 @@ export class UserEdit {
   private async userDniPhoneExists(id: number, num: number): Promise<boolean> {
     const users = await firstValueFrom(this.UserService.get());
     for (const user of users) {
-      if (user.id != id && (user.dni === num || user.phone === num)) {
+      if (user.id != id && (user.dni == num || user.phone == num)) {
         return true;
       }
     }
@@ -174,11 +174,15 @@ export class UserEdit {
   }
 
   get() {
-    return this.UserService.edit(this.user.id).subscribe(data => {
-      this.user = data
-    }, e => {
-      alert(e.error)
-    })
+    const userId = this.route.snapshot.params['id'] || this.user.id;  // Valor por defecto si 'id' es undefined
+    this.UserService.get(userId).subscribe(
+      data => {
+        this.user = data;
+      },
+      e => {
+        alert(e.error);
+      }
+    );
   }
 
   async edit() {

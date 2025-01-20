@@ -58,7 +58,7 @@ describe('UserDelete Component', () => {
       await component.delete();
   
       // Verifica que el servicio fue llamado con los argumentos correctos
-      expect(mockUserService.delete).toHaveBeenCalledWith(userToDelete.id, userToDelete);
+      expect(mockUserService.delete).toHaveBeenCalledWith(1, userToDelete);
   
       // Verifica que se llamó a toastr con el mensaje correcto
       expect(mockToastrService.success).toHaveBeenCalledWith(
