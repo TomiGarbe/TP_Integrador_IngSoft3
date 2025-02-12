@@ -178,7 +178,7 @@ describe('UserEdit Component', () => {
       await component.edit();
   
       // Verifica que el servicio fue llamado con los argumentos correctos
-      expect(mockUserService.edit).toHaveBeenCalledWith(1, userToEdit);
+      expect(mockUserService.edit).toHaveBeenCalledWith(userToEdit.id, userToEdit);
   
       // Verifica que se llamó a toastr con el mensaje correcto
       expect(mockToastrService.success).toHaveBeenCalledWith(

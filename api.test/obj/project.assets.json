@@ -11230,11 +11230,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api.test\\api.test.csproj",
+      "projectUniqueName": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api.test\\api.test.csproj",
       "projectName": "api.test",
-      "projectPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api.test\\api.test.csproj",
+      "projectPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api.test\\api.test.csproj",
       "packagesPath": "C:\\Users\\tomas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api.test\\obj\\",
+      "outputPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api.test\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\tomas\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -11249,8 +11249,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api\\App.csproj": {
-              "projectPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api\\App.csproj"
+            "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api\\App.csproj": {
+              "projectPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api\\App.csproj"
             }
           }
         }

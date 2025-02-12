@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api.test\\api.test.csproj": {}
+    "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api.test\\api.test.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api.test\\api.test.csproj": {
+    "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api.test\\api.test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api.test\\api.test.csproj",
+        "projectUniqueName": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api.test\\api.test.csproj",
         "projectName": "api.test",
-        "projectPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api.test\\api.test.csproj",
+        "projectPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api.test\\api.test.csproj",
         "packagesPath": "C:\\Users\\tomas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api.test\\obj\\",
+        "outputPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api.test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\tomas\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,8 +26,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api\\App.csproj": {
-                "projectPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api\\App.csproj"
+              "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api\\App.csproj": {
+                "projectPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api\\App.csproj"
               }
             }
           }
@@ -68,8 +68,6 @@
               "version": "[9.0.0.1, )"
             },
             "coverlet.collector": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
               "target": "Package",
               "version": "[6.0.3, )"
             },
@@ -102,14 +100,14 @@
         }
       }
     },
-    "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api\\App.csproj": {
+    "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api\\App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api\\App.csproj",
+        "projectUniqueName": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api\\App.csproj",
         "projectName": "App",
-        "projectPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api\\App.csproj",
+        "projectPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api\\App.csproj",
         "packagesPath": "C:\\Users\\tomas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api\\obj\\",
+        "outputPath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\tomas\\AppData\\Roaming\\NuGet\\NuGet.Config"

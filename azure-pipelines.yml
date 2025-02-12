@@ -1,0 +1,286 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  configuration: 'Release'
+  buildOutput: '$(Build.ArtifactStagingDirectory)'
+  nodeVersion: '20.x'
+  backProjectPath: './api'
+  frontProjectPath: '$(System.DefaultWorkingDirectory)/view'
+  webApp-back-qa-url: 'https://tg-backend.azurewebsites.net/api'
+  webApp-back-prod-url: 'https://tg-backend-prod.azurewebsites.net/api'
+  ResourceGroupName: 'IngSoft3'
+
+# #----------------------------------------------------------
+# ### STAGE DE BUILD Y TESTS
+# #----------------------------------------------------------
+
+stages:
+- stage: BuildAndTests
+  displayName: 'Build And Tests'
+  jobs:
+
+  # #----------------------------------------------------------
+  # ### BUILD Y TESTS DE BACK
+  # #----------------------------------------------------------
+
+  - job: BuildBackJob
+    displayName: 'Build Back'
+    steps:
+    - checkout: self
+      fetchDepth: 0
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Restaurar paquetes NuGet'
+      inputs:
+        command: restore
+        projects: '*.sln'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Ejecutar pruebas de la API'
+      inputs:
+        command: 'test'
+        projects: '**/*.test.csproj'
+        arguments: '--collect:"XPlat Code Coverage"'
+      continueOnError: false
+
+    - task: PublishCodeCoverageResults@2
+      inputs:
+        summaryFileLocation: '$(Agent.TempDirectory)/**/*.cobertura.xml'
+        failIfCoverageEmpty: false
+      displayName: 'Publicar resultados de code coverage del back-end'
+
+    - task: DotNetCoreCLI@2 
+      inputs:
+        command: 'build'
+        projects: '$(backProjectPath)/App.csproj'
+        arguments: '--configuration $(configuration) --output $(buildOutput)/api --self-contained false'
+      displayName: 'Build de Back'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish Application'
+      inputs:
+        command: publish
+        publishWebProjects: True
+        arguments: '--configuration $(buildConfiguration) --output $(buildOutput)'
+        zipAfterPublish: false
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Build Artifacts'
+      inputs:
+        PathtoPublish: '$(buildOutput)'
+        ArtifactName: 'Back'
+        publishLocation: 'Container'
+
+  # #----------------------------------------------------------
+  # ### BUILD Y TESTS DE FRONT
+  # #----------------------------------------------------------
+
+  - job: BuildFrontJob
+    displayName: 'Build Front'
+    steps:
+    - checkout: self
+      fetchDepth: 0
+
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '20.x'
+      displayName: 'Install Node.js'
+
+    - task: Cache@2
+      inputs:
+        key: 'npm | "$(Agent.OS)" | view/package-lock.json'
+        path: 'view/node_modules'
+        restoreKeys: |
+          npm | "$(Agent.OS)"
+      displayName: 'Cachear dependencias de npm'
+
+    - script: npm install
+      displayName: 'npm install'
+      workingDirectory: $(frontProjectPath)
+
+    - script: npx ng test --karma-config=karma.conf.js --watch=false --browsers ChromeHeadless --code-coverage
+      displayName: 'Ejecutar pruebas del front'
+      workingDirectory: $(frontProjectPath)
+      continueOnError: false
+
+    - task: PublishCodeCoverageResults@2
+      inputs:
+        summaryFileLocation: '$(frontProjectPath)/coverage/lcov.info'
+        failIfCoverageEmpty: false
+      condition: succeeded()
+      displayName: 'Publicar resultados de code coverage del front'
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$(frontProjectPath)/test-results/test-results.xml'
+        failTaskOnFailedTests: true
+      condition: succeeded()
+      displayName: 'Publicar resultados de pruebas unitarias del front'
+
+    - script: npx ng build --output-path=dist/angular
+      displayName: 'Build de Front'
+      workingDirectory: $(frontProjectPath)
+      condition: succeeded()
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(frontProjectPath)/dist/angular/browser'
+        ArtifactName: 'Front'
+        publishLocation: 'Container'
+      displayName: 'Publish Artifacts'
+
+# #----------------------------------------------------------
+# ### STAGE DE DEPLOY DE WEB APPS QA
+# #----------------------------------------------------------
+
+- stage: DeployQA
+  dependsOn: BuildAndTests
+  displayName: 'Deploy to QA'
+  jobs:
+
+  # #----------------------------------------------------------
+  # ### DEPLOY DE BACK A WEB APP QA
+  # #----------------------------------------------------------
+
+  - job: DeployBackQAJob
+    displayName: 'Deploy Back to QA'
+    steps:
+
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'Back'
+        downloadPath: '$(Pipeline.Workspace)/Back'
+
+    - task: AzureRmWebAppDeployment@4
+      displayName: 'Deploy Back to QA'
+      inputs:
+        azureSubscription: 'Azure for Students(82f0bd64-79e1-474d-b65f-86405d244521)'
+        appType: 'webApp'
+        WebAppName: 'tg-backend'
+        package: '$(Pipeline.Workspace)/Back/api'
+
+  # #----------------------------------------------------------
+  # ### DEPLOY DE FRONT A WEB APP QA
+  # #----------------------------------------------------------
+
+  - job: DeployFrontQAJob
+    displayName: 'Deploy Front to QA'
+    steps:
+
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'Front'
+        targetPath: '$(Pipeline.Workspace)/Front'
+
+    - script: node ./src/generate-env.js $(webApp-back-qa-url)
+      displayName: 'Generate environment config'
+      workingDirectory: $(frontProjectPath)
+
+    - script: cp $(frontProjectPath)\src\env.js $(Pipeline.Workspace)/Front/env.js
+      displayName: 'Copiar archivo de configuración QA'
+
+    - task: AzureRmWebAppDeployment@4
+      displayName: 'Deploy Front to QA'
+      inputs:
+        azureSubscription: 'Azure for Students(82f0bd64-79e1-474d-b65f-86405d244521)'
+        appType: 'webApp'
+        WebAppName: 'tg-frontend'
+        package: '$(Pipeline.Workspace)/Front'
+
+  # #----------------------------------------------------------
+  # ### JOB DE PRUEBAS DE INTEGRACION EN WEB APPS
+  # #----------------------------------------------------------
+
+  - job: IntegrationTests
+    displayName: 'Integrations Tests'
+    dependsOn:
+    - DeployBackQAJob
+    - DeployFrontQAJob
+    variables:
+        Url: 'https://tg-frontend.azurewebsites.net'
+    steps:
+
+    - script: npm install typescript ts-node
+      workingDirectory: $(frontProjectPath)
+      displayName: 'Install TypeScript'
+
+    - script: npx cypress run --config-file cypress.config.ts --env Url=$(Url)
+      workingDirectory: $(frontProjectPath)
+      displayName: 'Run Cypress E2E Tests'
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFiles: '$(frontProjectPath)/cypress/results/*.xml'
+        testRunTitle: 'Cypress E2E Tests (QA)'
+        failTaskOnFailedTests: true
+      displayName: 'Publicar resultados de Cypress'
+
+# #----------------------------------------------------------
+# ### STAGE DE DEPLOY DE WEB APPS PROD
+# #----------------------------------------------------------
+
+- stage: DeployPROD
+  displayName: 'Deploy to PROD'
+  dependsOn: DeployQA
+  jobs:
+  - deployment: DeployProdJob
+    displayName: 'Desplegar Web Apps a PROD'
+    environment: 'Production'
+
+  # #----------------------------------------------------------
+  # ### DEPLOY DE BACK A WEB APP PROD
+  # #----------------------------------------------------------
+
+  - job: DeployBackPRODJob
+    displayName: 'Deploy Back to PROD'
+    steps:
+
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'Back'
+        downloadPath: '$(Pipeline.Workspace)/Back'
+
+    - task: AzureRmWebAppDeployment@4
+      displayName: 'Deploy Back to PROD'
+      inputs:
+        azureSubscription: 'Azure for Students(82f0bd64-79e1-474d-b65f-86405d244521)'
+        appType: 'webApp'
+        WebAppName: 'tg-backend-prod'
+        package: '$(Pipeline.Workspace)/Back/api'
+
+  # #----------------------------------------------------------
+  # ### DEPLOY DE FRONT A WEB APP PROD
+  # #----------------------------------------------------------
+
+  - job: DeployFrontPRODJob
+    displayName: 'Deploy Front to PROD'
+    steps:
+
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'Front'
+        targetPath: '$(Pipeline.Workspace)/Front'
+
+    - script: node ./src/generate-env.js $(webApp-back-prod-url)
+      displayName: 'Generate environment config'
+      workingDirectory: $(frontProjectPath)
+
+    - script: cp $(frontProjectPath)\src\env.js $(Pipeline.Workspace)/Front/env.js
+      displayName: 'Copiar archivo de configuración PROD'
+
+    - task: AzureRmWebAppDeployment@4
+      displayName: 'Deploy Front to PROD'
+      inputs:
+        azureSubscription: 'Azure for Students(82f0bd64-79e1-474d-b65f-86405d244521)'
+        appType: 'webApp'
+        WebAppName: 'tg-frontend-prod'
+        package: '$(Pipeline.Workspace)/Front'

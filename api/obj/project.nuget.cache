@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Lz0adXoAnp0=",
+  "dgSpecHash": "K88S7ImRIuw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\TP_Integrador_IngSoft3\\api\\App.csproj",
+  "projectFilePath": "C:\\Users\\tomas\\Desktop\\Visual_Studio_Code\\4-Cuarto_Año\\Ingenieria_de_Software_III\\Example-CRUD-Angular-18-dotnet-8\\api\\App.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tomas\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\tomas\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
